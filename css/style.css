@@ -1,0 +1,730 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap');
+
+/* CSS Variabler */
+:root {
+  --header-height: 3rem;
+  --font-semi: 600;
+}
+
+/* Färger */
+:root {
+  --background-color: #FFFDFA;
+  --light-green: #151D3B;
+  --light-blue: #151D3B;
+  --darker-blue: #151D3B;
+  --light-pink: #151D3B;
+  --green: #6EBF8B;
+}
+
+/* Typsnitt */
+:root {
+  --body-font: "Poppins", sans-serif;
+  --big-font-size: 2rem;
+  --h2-font-size: 1.25rem;
+  --normal-font-size: 0.938rem;
+}
+@media screen and (min-width: 768px) {
+  :root {
+    --big-font-size: 3.5rem;
+    --h2-font-size: 2rem;
+    --normal-font-size: 1rem;
+  }
+}
+
+/* Margins */
+:root {
+  --mb-1: 0.5rem;
+  --mb-2: 1rem;
+  --mb-3: 1.5rem;
+  --mb-4: 2rem;
+  --mb-5: 2.5rem;
+  --mb-6: 3rem;
+}
+
+/* Z-index */
+:root {
+  --z-back: -10;
+  --z-normal: 1;
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/* BAS CSS */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: var(--header-height) 0 0 0;
+  font-family: var(--body-font);
+  background-color: var(--background-color);
+  font-size: var(--normal-font-size);
+  color: var(--second-color);
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+h3{
+  color: var(--darker-blue);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* LAYOUT */
+
+.grid {
+  max-width: 1024px;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 2rem;
+  width: calc(100% - 2rem);
+  margin-left: var(--mb-2);
+  margin-right: var(--mb-2);
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  /* background-color: var(--background-color); */
+  /* box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15); */
+}
+
+.header::before{ /* När man scrollar blir headern blå och är fast på skärmen. Detta aktiveras av jacascript */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--background-color);
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
+  z-index: -1;
+  transition: transform 0.5s ease;
+  transform: translateY(-100%);
+}
+.header.sticky::before{ /* När man scrollar blir headern blå och är fast på skärmen. Detta aktiveras av jacascript  */
+  transform: translateY(0%);  
+}
+
+/* Sektion Titlar */
+.section-title{
+    width: 100%;
+    padding: 0 15px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+.section-title h2{
+    font-size: 55px;
+    text-transform: capitalize;
+    color: var(--darker-blue);
+}
+
+
+/* ====================================================================
+    NAV/HEADER
+=================================================== */
+
+.nav {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: var(--font-semi);
+}
+
+@media screen and (max-width: 768px) {
+  .nav_menu {
+    /* Menyn när man trycker på meny-knappen */
+    position: fixed;
+    top: var(--header-height);
+    right: -100%;
+    width: 60%;
+    height: 100%;
+    padding: 2rem;
+    background-color: var(--darker-blue);
+    transition: 0.5s;
+  }
+}
+
+.nav_item {
+  margin-bottom: var(--mb-4);
+}
+
+.nav_link {
+  position: relative;
+  color: #fff;
+}
+
+.nav_link:hover {
+  position: relative;
+}
+
+.nav_link:hover::after {
+  /* Linje under länkarna */
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0.18rem;
+  left: 0;
+  top: 2rem;
+  background-color: var(--light-pink);
+}
+
+.nav_logo {
+  color: var(--light-pink);
+}
+
+.nav_logo img {
+  width: 250px;
+}
+
+.nav_toggle {
+  /* Meny-ikonen */
+  color: var(--light-pink);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.active::after {
+  /* Aktiv meny */
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0.18rem;
+  left: 0;
+  top: 2rem;
+  background-color: var(--light-green);
+}
+
+/* Visa meny */
+
+.show {
+  /* Klassen show är skapad i Javascript */
+  right: 0;
+}
+
+/* MEDIA QUERIES (Responsiv) */
+
+@media screen and (min-width: 768px) {
+  body {
+    margin: 0;
+  }
+  .nav {
+    height: calc(var(--header-height) + 1rem);
+  }
+  .nav_list {
+    display: flex;
+    padding-top: 0;
+  }
+  .nav_item {
+    margin-left: var(--mb-6);
+    margin-bottom: 0;
+  }
+  .nav_toggle {
+    display: none;
+  }
+  .nav_link {
+    color: var(--light-pink);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .grid {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ====================================================================
+    FÖRSTA-SIDA
+=================================================== */
+
+.container{
+    max-width: 1170px;
+    margin:auto;
+    background-color: #FFFDFA;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.whole-screen{ /* Gör att sektionen/bilden fyller hela skärmen*/
+    min-height: 100vh; 
+}
+
+.start-section{
+    position: relative;
+    overflow: hidden;
+}
+
+.start-section .start-bg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/bg3.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    z-index: -2; /* Gör att texten syns ovanför bilden */
+    animation: zoomInOut 20s ease infinite;
+}
+.start-section .whole-screen{
+    padding: 100px 0;
+}
+
+.start-section .container{
+  background-color: transparent;
+  max-width: 1170px;
+  margin-left: -130px;
+}
+
+.start-text{
+    padding: 0 15px;
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+    text-align: left;
+    color: var(--light-pink);
+}
+.start-text h1{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900;
+    font-size: 93px;
+    line-height: 75px;
+    margin: 0 0 35px;
+    line-height: 90px;
+}
+.start-text p{
+    margin: 0 0 35px;
+}
+
+
+/* ====================================================================
+   OM-SEKTIONEN
+=================================================== */
+
+.about-section{
+    background-color: #fff;
+    min-height: 100vh; 
+}
+
+.about-section, .container{
+    max-width: 1170px;
+    margin:auto;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.about-text,
+.about-img{ /* Sätter text och bild-delarna brevid varandra */
+    width: 50%;
+    padding: 0 15px;
+}
+
+.about-text .general{
+  font-size: 50px;
+  text-transform: capitalize;
+  margin: 0 0 15px;
+}
+
+.experience{
+  font-size: 30px;
+  text-transform: capitalize;
+  margin: 0 0 15px;
+}
+
+/* .about-text .experience{
+    border-bottom: 5px solid var(--darker-blue);
+    border-bottom-width: 50%;
+} */
+
+/* .experience-text{
+  font-size: 15px;
+} */
+
+.about-text p{
+    margin: 0 0 15px;
+    font-weight: 100;
+}
+.about-text .btn{
+    margin: 15px 0 0;
+}
+.about-img img{
+    width: 100%;
+    border-radius: 10px;
+}
+.about-img .img-box{
+    position: relative;
+}
+
+.sec-padding{
+    padding: 80px 0;
+}
+
+/* .btn i{
+  font-size: 20px; 
+}  */
+
+
+/* ============== 
+    Våra tjänster
+=====================*/
+
+.start-section .service-bg{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('../img/service.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  z-index: -2; /* Gör att texten syns ovanför bilden */
+  animation: zoomInOut 20s ease infinite;
+}
+
+.service-text{
+  padding: 0 15px;
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+  text-align: left;
+  color: var(--light-pink);
+  text-align: center;
+}
+
+.service-text h1{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  font-size: 93px;
+  line-height: 75px;
+  margin: auto;
+  line-height: 90px;
+}
+
+
+/* ============== 
+    TESTIMONIALS (4e sektionen)
+=====================*/
+
+.testimonials-section{
+    background-color: #fff;
+    padding-bottom: 50px;
+}
+.testi-item{
+    width: calc((100% / 2) - 30px); /* Lägger reviews på en rad */
+    margin: 0 15px 30px;
+    padding: 60px;
+    border-radius: 12px;
+    box-shadow: #000;
+}
+
+.testi-one{
+  /* background-image: url('../img/football3.jpeg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center; */
+  background-color: var(--green);
+}
+
+.testi-two{
+  /* background-image: url('../img/fotboll2.jpeg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center; */
+  background-color: var(--darker-blue);
+}
+
+/* .testi-item::before{ //gör mörkare effekt över bakgrunden
+  content: ""; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-image: linear-gradient(120deg, #019267, #000);
+  opacity: .6;
+  z-index: -1;
+} */
+
+.testi-author{
+    display: flex; /* Lägger namnet vid sidan av bilden */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.testi-author-quote i{
+  font-size: 55px;
+  color: #fff;
+} 
+
+.testi-author h3{
+    font-size: 19px;
+    text-transform: capitalize;
+    margin: 0 0 3px;
+    color: #fff;
+}
+.testi-author span{
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    text-transform: capitalize;
+    color: #f5f5f5;
+}
+.testi-item p{
+    margin: 15px 0;
+    color: #f1f1f1;
+    font-family: var(--body-font);
+    font-size: 20px;
+    font-weight: 100;
+    font-style: italic;
+}
+.testi-item .ratings i{
+    font-size: 16px;
+    color: #FFD700;
+}
+
+/* ============== 
+    Kontakt
+=====================*/
+
+.kontakt-section{
+  background-color: var(--dark);
+  min-height: 100vh;
+}
+
+.kontakt-section h1{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  font-size: 93px;
+  line-height: 75px;
+  margin: 60px 0 35px;
+  line-height: 90px;
+}
+
+.contact-item{
+  width: calc(100% / 3);
+  padding: 0 15px;
+  text-align: center;
+}
+
+.contact-item a{
+  color: var(--darker-blue);
+  text-decoration: underline;
+}
+
+.contact-item a:hover{
+  color: var(--green);
+}
+
+iframe{
+  width:300px;
+  height: 300px;
+}
+
+.kontakt-section .telefon{
+  color: var(--white-light);
+  text-decoration: underline;
+}
+
+/* ============== 
+    Buttons
+=====================*/
+.btn{
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: var(--darker-blue);
+  border-radius: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: inherit;
+  color: #fff;
+  line-height: 1.5;
+  user-select: none;
+  border: none;
+}
+
+.btn-default:hover{
+    color: #fff;
+    background-color: #6EBF8B;
+}
+
+/* ============== 
+    FOOTER 
+=====================*/
+.footer{
+  padding: 80px 0 0;
+  background-color: var(--darker-blue);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footer li{
+  list-style-type: none;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+}
+
+.footer_nav_item a{
+  color: #fff;
+}
+
+.footer_nav_item a:hover{
+  color: var(--green);
+}
+
+.footer .container{
+  background-color: transparent;
+}
+
+.footer-item{
+  width: calc(100% / 3);
+  padding: 0 15px;
+  text-align: center;
+}
+.footer-item h3{
+  text-transform: capitalize;
+  font-size: 22px;
+  margin: 0 0 15px;
+  color: #fff;
+}
+.footer-item p{
+  line-height: 30px;
+  color: #fff;
+}
+.footer-item .social-links{
+  margin-top: 15px;
+}
+.footer-item .social-links a{
+  display: inline-flex;
+  height: 40px;
+  width: 40px;
+  color: #fff;
+  font-size: 22px;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3 ease;
+}
+.footer-item .social-links a:hover{
+  color: #6EBF8B;
+}
+.footer .copyright{
+  margin: 80px 0 0;
+  width: 100%;
+  text-align: center;
+  padding: 25px 15px;
+  font-size: 17px;
+  border-top: 1px solid #fff; /* Linje ovanför */
+}
+.copyright p{
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ============== 
+    RESPONSIV
+=====================*/
+
+@media(max-width: 991px){
+    .testi-item{
+        width: calc(50% - 30px);
+    }
+    .team-item{
+        width: 50%;
+    }
+    .team-item:not(:last-child){
+        margin-bottom: 75px;
+    }
+
+    .start-section .container{
+      background-color: transparent;
+      max-width: 1170px;
+      margin-left: 0px;
+    }
+
+    .start-section h1{
+      font-size: 70px;
+    }
+}
+@media(max-width: 767px){
+    .home-text h1{
+        font-size: 50px;
+        line-height: 65p;
+    }
+    .menu-item, 
+    .about-text, 
+    .about-img{
+        width: 100%;
+    }
+    .menu-item:nth-last-of-type(2):after{
+         border-bottom: 2px dashed var(--dark-light);
+    }
+    .about-img{
+        margin-top: 40px;
+    }
+    .about-text h3{
+        font-size: 24px;
+    }
+    .footer-item{
+        width: 100%;
+    }
+    .footer-item:not(:last-child){
+        margin-bottom: 30px;
+    }
+    .testi-item{
+        width: calc(100% - 30px);
+    }
+    .contact-item{
+      width: 100%;
+    }
+}
+@media(max-width: 575px){
+    .team-item{
+        width: 100%;
+    }
+}
